@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="a">#000000</color>
+    <color name="b">#6b6f72</color>
+    <color name="c">#bdbdbd</color>
+    <color name="d">#d0d0d0</color>
+    <color name="e">#eaeaea</color>
+    <color name="f">#f0f0f0</color>
+    <color name="g">#fafafa</color>
+    <color name="h">#009a6c</color>
+    <color name="i">#01b69f</color>
+    <color name="j">#64e0e5</color>
+    <color name="k">#5b3d15</color>
+    <color name="l">#ffce09</color>
+    <color name="m">#ffea57</color>
+    <color name="n">#44e9b1</color>
+    <color name="o">#00c087</color>
+    <color name="p">#dbe2e4</color>
+    <color name="q">#fff47c</color>
+    <color name="r">#0c7eb4</color>
+    <color name="s">#b39b84</color>
+    <color name="t">#f2f2f2</color>
+    <color name="u">#39ca98</color>
+    <color name="v">#e3e0e0</color>
+    <color name="w">#ff0000</color>
+    <color name="x">#00ff00</color>
+
+    <color name="ta">#000000</color>
+    <color name="tb">#313131</color>
+    <color name="tc">#6b6f72</color>
+    <color name="td">#666666</color>
+    <color name="te">#b1a8a0</color>
+    <color name="tf">#fafafa</color>
+    <color name="tg">#39ca98</color>
+    <color name="th">#7bb9b7</color>
+    <color name="ti">#592c78</color>
+    <color name="tj">#2d4d9e</color>
+    <color name="tk">#3d9ad0</color>
+    <color name="tl">#15c8f5</color>
+    <color name="tm">#e6b110</color>
+    <color name="tn">#ffea57</color>
+    <color name="to">#fff724</color>
+    <color name="tp">#e9e8e8</color>
+    <color name="tq">#6f563f</color>
+    <color name="tr">#d8d8d8</color>
+    <color name="ts">#fff47c</color>
+    <color name="tt">#3f937a</color>
+    <color name="tu">#65ff86</color>
+    <color name="tv">#a6a6a6</color>
+    <color name="tw">#c6905c</color>
+    <color name="tx">#86898b</color>
+    <color name="ty">#939393</color>
+    <color name="tz">#0094b0</color>
+
+    <color name="taa">#878787</color>
+    <color name="tab">#00a873</color>
+    <color name="tac">#008b2b</color>
+    <color name="tad">#f3f3f3</color>
+    <color name="tae">#cecece</color>
+    <color name="taf">#2999e0</color>
+    <color name="tag">#08b49a</color>
+
+    <color name="winset_card_bg">#ebebeb</color>
+    <color name="winset_card_stroke">#c8c8c8</color>
+    <color name="color_control_highlight">#40ffffff</color>
+    <color name="image_popup_dim">#30000000</color>
+    <color name="statusbar_bg">#007540</color>
+    <color name="actionmenu_text">#d8ff7c</color>
+</resources>
+   
+   
+   
+

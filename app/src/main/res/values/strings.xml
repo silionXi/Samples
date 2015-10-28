@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Samples</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="new_password">请输入新的密码</string>
+    <string name="input_password">请输入解锁密码</string>
+    <string name="save_password">保存密码</string>
+    <string name="password_error">密码错误</string>
+    <string name="password_too_short">密码太短，至少4位以上</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
