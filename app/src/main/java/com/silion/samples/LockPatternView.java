@@ -241,7 +241,7 @@ public class LockPatternView extends View {
         for (int i = 0; i < mCircle.length; i++) {
             for (int j = 0; j < mCircle[i].length; j++) {
                 Circle circle = mCircle[i][j];
-                if (circle.inCircle(movingX, movingY)) {
+                if (circle != null && circle.inCircle(movingX, movingY)) {
                     return circle;
                 }
             }
