@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="android:Theme.DeviceDefault.Light">
         <item name="android:windowBackground">@color/a</item>
         <item name="android:textColorPrimary">@color/tb</item>

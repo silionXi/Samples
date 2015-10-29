@@ -1,8 +1,6 @@
 package com.silion.samples;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -289,6 +287,7 @@ public class LockPatternView extends View {
 
     /**
      * set pattern listener
+     *
      * @param listener
      */
     public void setOnPatternChangeListener(OnPatternChangeListener listener) {
