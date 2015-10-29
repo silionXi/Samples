@@ -1,12 +1,12 @@
 package com.silion.samples;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
 import org.apache.http.NameValuePair;
@@ -47,17 +47,12 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
-        super.onResume();
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         Fragment currentFragment = mFragmentManager.findFragmentById(R.id.container);
-        if (!(currentFragment != null && currentFragment instanceof LockPatternFragment)) {
-            fragmentTransaction.add(R.id.container, new LockPatternFragment());
-            fragmentTransaction.addToBackStack(null);
-            if (currentFragment != null) {
-                fragmentTransaction.hide(currentFragment);
-            }
-            fragmentTransaction.commit();
+        if (!(currentFragment instanceof LockPatternFragment)) {
+            Fragment fragment = new LockPatternFragment();
+            pushFragment(fragment);
         }
+        super.onResume();
     }
 
     @Override
@@ -108,6 +103,11 @@ public class MainActivity extends Activity {
                                 pushFragment(fragment);
                                 break;
                             }
+                            case "setting": {
+                                Fragment fragment = new SettingFragment();
+                                pushFragment(fragment);
+                                break;
+                            }
                             default:
                                 break;
                         }
@@ -138,9 +138,20 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                popFragment();
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void pushFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        String tag = fragment.getClass().getSimpleName();
+        String tag = fragment.getClass().getSimpleName() + "_" + fragment.hashCode();
         fragmentTransaction.add(R.id.container, fragment, tag);
         fragmentTransaction.addToBackStack(tag);
 
@@ -151,7 +162,7 @@ public class MainActivity extends Activity {
 
         fragmentTransaction.commitAllowingStateLoss();
         // to avoid multi onclick to add multi fragment
-        //mFragmentManager.executePendingTransactions();
+        mFragmentManager.executePendingTransactions();
     }
 
     public void popFragment() {

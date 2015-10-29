@@ -10,8 +10,6 @@
     <string name="save_password">保存密码</string>
     <string name="password_error">密码错误</string>
     <string name="password_too_short">密码太短，至少4位以上</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="developer">开发者</string>
+    <string name="setting_fragment_title">设置</string>
 </resources>

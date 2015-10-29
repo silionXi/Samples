@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,6 +38,22 @@ public class MainFragment extends FragmentBase {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_by_list:
+                return true;
+            case R.id.view_by_grid:
+                return true;
+            case R.id.action_settings:
+                performActionLink("samples://view/setting");
+                return true;
+            case R.id.developer:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void updataActionBar() {
@@ -44,7 +61,6 @@ public class MainFragment extends FragmentBase {
         if (actionBar == null) {
             return;
         }
-        actionBar.show();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         super.updataActionBar();
     }

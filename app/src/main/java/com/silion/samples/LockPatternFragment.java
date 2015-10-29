@@ -81,16 +81,22 @@ public class LockPatternFragment extends FragmentBase implements LockPatternView
                     @Override
                     public void onClick(View v) {
                         mPreferences.edit().putString("password", pattern).apply();
-                        mMainActivity.popFragment();
+                        if (mMainActivity != null) {
+                            mMainActivity.getFragmentManager().popBackStack();
+                        }
                     }
                 });
             }
         } else {
             if (mPassword.equals(pattern)) {
-                mMainActivity.popFragment();
+                if (mMainActivity != null) {
+                    mMainActivity.getFragmentManager().popBackStack();
+                }
             } else {
                 Toast.makeText(mMainActivity, getString(R.string.password_error), Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
 }

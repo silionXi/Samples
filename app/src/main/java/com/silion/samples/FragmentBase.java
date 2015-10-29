@@ -51,6 +51,7 @@ public class FragmentBase extends Fragment implements IFragmentBase{
         if ((displayOptions & ActionBar.DISPLAY_SHOW_CUSTOM) > 0) {
             //TODO custom actionbar view
         }
+        actionBar.show();
     }
 
     @Override
