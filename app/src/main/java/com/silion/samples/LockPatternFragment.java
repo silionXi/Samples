@@ -24,11 +24,7 @@ public class LockPatternFragment extends FragmentBase implements LockPatternView
 
     private SharedPreferences mPreferences;
     private String mPassword;
-
-    public LockPatternFragment() {
-        // Required empty public constructor
-    }
-
+    private boolean mIsLock;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +35,10 @@ public class LockPatternFragment extends FragmentBase implements LockPatternView
         mTitilTextView = (TextView) mRootView.findViewById(R.id.title);
         mSavePwButton = (Button) mRootView.findViewById(R.id.savePassword);
         mSavePwButton.setVisibility(View.GONE);
+        Bundle arguments = this.getArguments();
+        if (arguments != null) {
+            mIsLock = arguments.getBoolean("isLock", false);
+        }
         return mRootView;
     }
 
@@ -46,7 +46,7 @@ public class LockPatternFragment extends FragmentBase implements LockPatternView
     public void onResume() {
         mPreferences = mMainActivity.getSharedPreferences("lockPatternDemo", Context.MODE_PRIVATE);
         mPassword = mPreferences.getString("password", null);
-        if (mPassword == null || mPassword.length() < 4) {
+        if (mIsLock || mPassword == null || mPassword.length() < 4) {
             mTitilTextView.setText(getResources().getString(R.string.new_password));
         } else {
             mTitilTextView.setText(getResources().getString(R.string.input_password));
@@ -72,7 +72,7 @@ public class LockPatternFragment extends FragmentBase implements LockPatternView
 
     @Override
     public void onPatternChange(final String pattern) {
-        if (mPassword == null || mPassword.length() < 4) {
+        if (mIsLock || mPassword == null || mPassword.length() < 4) {
             if (pattern == null) {
                 Toast.makeText(mMainActivity, getString(R.string.password_too_short), Toast.LENGTH_SHORT).show();
             } else {

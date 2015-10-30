@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="lockApp"
+        android:summary="@string/setting_fragment_lock_app_description"
+        android:title="@string/setting_fragment_lock_app">
+
+    </SwitchPreference>
+</PreferenceScreen>

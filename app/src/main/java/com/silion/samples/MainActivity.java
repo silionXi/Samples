@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -47,8 +49,10 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isLock = sharedPreferences.getBoolean("lockApp", false);
         Fragment currentFragment = mFragmentManager.findFragmentById(R.id.container);
-        if (!(currentFragment instanceof LockPatternFragment)) {
+        if (isLock && !(currentFragment instanceof LockPatternFragment)) {
             Fragment fragment = new LockPatternFragment();
             pushFragment(fragment);
         }

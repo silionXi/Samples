@@ -3,12 +3,14 @@ package com.silion.samples;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 
 /**
@@ -16,11 +18,7 @@ import android.widget.Button;
  */
 public class SettingFragment extends PreferenceFragment implements IFragmentBase {
     private MainActivity mMainActivity;
-    private View mRootView;
-
-    public SettingFragment() {
-        // Required empty public constructor
-    }
+    private SwitchPreference mLockAppSetting;
 
     @Override
     public void onAttach(Activity activity) {
@@ -29,24 +27,30 @@ public class SettingFragment extends PreferenceFragment implements IFragmentBase
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        addPreferencesFromResource(R.xml.prefs);
+        mLockAppSetting = (SwitchPreference) findPreference("lockApp");
+        mLockAppSetting.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Boolean isLock = Boolean.parseBoolean(String.valueOf(newValue));
+                Bundle arguments = new Bundle();
+                arguments.putBoolean("isLock", isLock);
+                Fragment fragment = new LockPatternFragment();
+                fragment.setArguments(arguments);
+                mMainActivity.pushFragment(fragment);
+                return true;
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_setting, container, false);
-        Button mainButton = (Button) mRootView.findViewById(R.id.main);
-        mainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMainActivity.pushFragment(new MainFragment());
-            }
-        });
-        Button lockButton = (Button) mRootView.findViewById(R.id.lock);
-        lockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMainActivity.pushFragment(new LockPatternFragment());
-            }
-        });
-        return mRootView;
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
 

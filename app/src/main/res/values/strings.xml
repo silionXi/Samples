@@ -12,4 +12,6 @@
     <string name="password_too_short">密码太短，至少4位以上</string>
     <string name="developer">开发者</string>
     <string name="setting_fragment_title">设置</string>
+    <string name="setting_fragment_lock_app">程序锁</string>
+    <string name="setting_fragment_lock_app_description">设置进入程序需要解锁</string>
 </resources>
