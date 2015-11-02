@@ -52,6 +52,22 @@ public class MainFragment extends FragmentBase {
         mPageBulletLayout = (ViewGroup) mRootView.findViewById(R.id.pageBulleLayout);
         mHeaderViewPager = (ViewPager) mRootView.findViewById(R.id.headerViewPager);
         mHeaderViewPager.setAdapter(mHeaderViewPagerAdapter);
+        mHeaderViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                updatePageBulletPosition();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         updateHeaderView();
         return mRootView;
     }
@@ -117,17 +133,35 @@ public class MainFragment extends FragmentBase {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             for (int i = 0; i < headerViewList.size(); i++) {
                 ImageView bullteImageView = (ImageView) layoutInflater.inflate(R.layout.view_header_view_bullet,
-                        mPageBulletLayout,false);
+                        mPageBulletLayout, false);
                 mPageBulletLayout.addView(bullteImageView);
             }
         }
 
         //Remake & notify headerView if page set is change.
         if (!headerViewList.equals(mHeaderViewList)) {
-            mHeaderViewList.clear();;
+            mHeaderViewList.clear();
+            ;
             mHeaderViewList.addAll(headerViewList);
 
             mHeaderViewPagerAdapter.notifyDataSetChanged();
+        }
+
+        // Update bullets
+        if (mHeaderViewList.size() > 1) {
+            mPageBulletLayout.setVisibility(View.VISIBLE);
+            updatePageBulletPosition();
+        } else {
+            mPageBulletLayout.setVisibility(View.GONE);
+        }
+    }
+
+    public void updatePageBulletPosition() {
+        int currentIndex = mHeaderViewPager.getCurrentItem();
+        for (int i = 0; i < mPageBulletLayout.getChildCount(); i++) {
+            ImageView bulletImage = (ImageView) mPageBulletLayout.getChildAt(i);
+            bulletImage.setImageDrawable(mMainActivity.getResources().getDrawable(i == currentIndex
+                    ? R.drawable.home_keyvisual_swipe_on : R.drawable.home_keyvisual_swipe_off));
         }
     }
 
