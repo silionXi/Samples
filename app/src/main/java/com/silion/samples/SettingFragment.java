@@ -18,7 +18,6 @@ import android.view.ViewGroup;
  */
 public class SettingFragment extends PreferenceFragment implements IFragmentBase {
     private MainActivity mMainActivity;
-    private SwitchPreference mLockAppSetting;
 
     @Override
     public void onAttach(Activity activity) {
@@ -31,8 +30,8 @@ public class SettingFragment extends PreferenceFragment implements IFragmentBase
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.prefs);
-        mLockAppSetting = (SwitchPreference) findPreference("lockApp");
-        mLockAppSetting.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        SwitchPreference lockAppSetting = (SwitchPreference) findPreference("lockApp");
+        lockAppSetting.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Boolean isLock = Boolean.parseBoolean(String.valueOf(newValue));

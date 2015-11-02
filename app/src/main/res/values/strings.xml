@@ -14,4 +14,6 @@
     <string name="setting_fragment_title">设置</string>
     <string name="setting_fragment_lock_app">程序锁</string>
     <string name="setting_fragment_lock_app_description">设置进入程序需要解锁</string>
+    <string name="string_format">字符串格式化 数字：%1$d</string>
+    <string name="change">增加</string>
 </resources>
