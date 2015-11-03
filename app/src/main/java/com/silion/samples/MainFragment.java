@@ -3,6 +3,7 @@ package com.silion.samples;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,8 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,14 +34,29 @@ public class MainFragment extends FragmentBase {
     private View mRootView;
     private ViewGroup mPageBulletLayout;
     private ViewPager mHeaderViewPager;
+    private ListView mListView;
+    private ListAdapter mListAdapter;
 
     private List<View> mHeaderViewList = new ArrayList<>();
     private Map<HeaderType, View> mHeaderTypeViewMap = new HashMap<>();
+    private List<MainData> mMainDataList = new ArrayList<>();
 
     private Timer mViewPagerScrollTimer;
 
     protected enum HeaderType {
         ONE, TWO, THREE, FOUR
+    }
+
+    protected class MainData {
+        protected final Drawable mIcon;
+        protected final String mTitle;
+        protected final String mUri;
+
+        public MainData(int icon, int title, String uri) {
+            this.mIcon = mMainActivity.getDrawable(icon);
+            this.mTitle = mMainActivity.getString(title);
+            this.mUri = uri;
+        }
     }
 
     public MainFragment() {
@@ -48,7 +66,7 @@ public class MainFragment extends FragmentBase {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         mRootView = inflater.inflate(R.layout.fragment_main, container, false);
         mTitle = mMainActivity.getString(R.string.app_name);
         setHasOptionsMenu(true);
@@ -82,6 +100,11 @@ public class MainFragment extends FragmentBase {
             }
         });
         updateHeaderView();
+
+        mListView = (ListView) mRootView.findViewById(R.id.listView);
+        mListAdapter = new ListAdapter();
+        mListView.setAdapter(mListAdapter);
+        updateListView();
         return mRootView;
     }
 
@@ -160,7 +183,6 @@ public class MainFragment extends FragmentBase {
         //Remake & notify headerView if page set is change.
         if (!headerViewList.equals(mHeaderViewList)) {
             mHeaderViewList.clear();
-            ;
             mHeaderViewList.addAll(headerViewList);
 
             mHeaderViewPagerAdapter.notifyDataSetChanged();
@@ -173,6 +195,11 @@ public class MainFragment extends FragmentBase {
         } else {
             mPageBulletLayout.setVisibility(View.GONE);
         }
+    }
+
+    public void updateListView() {
+        mMainDataList.add(new MainData(R.drawable.home_list_others, R.string.android_share_weibo, "samples://view/shareWeibo"));
+        mMainDataList.add(new MainData(R.drawable.home_list_others, R.string.android_msg_verify, "samples://view/msgVerify"));
     }
 
     public View createHeaderView(HeaderType type) {
@@ -275,4 +302,54 @@ public class MainFragment extends FragmentBase {
             return view == o; //check if two objects are same
         }
     };
+
+    protected class ListAdapter extends BaseAdapter {
+
+        protected class ViewHolder {
+            protected ImageView mIconBackgroundImageView;
+            protected ImageView mIconImageView;
+            protected TextView mTitleTextView;
+        }
+
+        @Override
+        public int getCount() {
+            return mMainDataList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mMainDataList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            View view = convertView;
+            if (view == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) mMainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = layoutInflater.inflate(R.layout.listitem_main, mListView, false);
+
+                viewHolder = new ViewHolder();
+                viewHolder.mIconBackgroundImageView = (ImageView) view.findViewById(R.id.iconBackgroundImageView);
+                viewHolder.mIconImageView = (ImageView) view.findViewById(R.id.iconImageView);
+                viewHolder.mTitleTextView = (TextView) view.findViewById(R.id.title);
+
+                view.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) view.getTag();
+            }
+
+            final MainData mainData = (MainData) getItem(position);
+            viewHolder.mIconImageView.setImageDrawable(mainData.mIcon);
+            viewHolder.mTitleTextView.setText(mainData.mTitle);
+            viewHolder.mIconBackgroundImageView.setColorFilter(mMainActivity.getResources().getColor(R.color.i));
+
+            return view;
+        }
+    }
 }

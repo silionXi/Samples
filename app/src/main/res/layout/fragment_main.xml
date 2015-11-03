@@ -26,7 +26,13 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="16dp"
             android:layoutDirection="ltr"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal"/>
     </FrameLayout>
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_listitem_icon"
+        android:dividerHeight="2px"/>
 </LinearLayout>

@@ -16,4 +16,6 @@
     <string name="setting_fragment_lock_app_description">设置进入程序需要解锁</string>
     <string name="string_format">字符串格式化 数字：%1$d</string>
     <string name="change">增加</string>
+    <string name="android_share_weibo">Android-多平台分享(新浪微博)</string>
+    <string name="android_msg_verify">Android-短信验证</string>
 </resources>
