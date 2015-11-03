@@ -4,6 +4,8 @@ package com.silion.samples;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 
@@ -14,6 +16,7 @@ public class FragmentBase extends Fragment implements IFragmentBase {
     protected MainActivity mMainActivity;
     protected String mTitle;
     protected View mCustomActionBarView;
+    protected final Handler mHandler = new Handler(Looper.getMainLooper());
 
     public FragmentBase() {
         // Required empty public constructor
@@ -24,6 +27,12 @@ public class FragmentBase extends Fragment implements IFragmentBase {
         super.onAttach(activity);
 
         mMainActivity = (MainActivity) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        mHandler.removeCallbacksAndMessages(null);
+        super.onDetach();
     }
 
     protected void performActionLink(String actionLink) {

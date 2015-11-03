@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -32,6 +34,8 @@ public class MainFragment extends FragmentBase {
 
     private List<View> mHeaderViewList = new ArrayList<>();
     private Map<HeaderType, View> mHeaderTypeViewMap = new HashMap<>();
+
+    private Timer mViewPagerScrollTimer;
 
     protected enum HeaderType {
         ONE, TWO, THREE, FOUR
@@ -65,11 +69,26 @@ public class MainFragment extends FragmentBase {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_DRAGGING:
+                        stopAutoScrollViewPager();
+                        break;
+                    case ViewPager.SCROLL_STATE_IDLE:
+                        startAutoScrollViewPager();
+                        break;
+                    default:
+                        break;
+                }
             }
         });
         updateHeaderView();
         return mRootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startAutoScrollViewPager();
     }
 
     @Override
@@ -156,15 +175,6 @@ public class MainFragment extends FragmentBase {
         }
     }
 
-    public void updatePageBulletPosition() {
-        int currentIndex = mHeaderViewPager.getCurrentItem();
-        for (int i = 0; i < mPageBulletLayout.getChildCount(); i++) {
-            ImageView bulletImage = (ImageView) mPageBulletLayout.getChildAt(i);
-            bulletImage.setImageDrawable(mMainActivity.getResources().getDrawable(i == currentIndex
-                    ? R.drawable.home_keyvisual_swipe_on : R.drawable.home_keyvisual_swipe_off));
-        }
-    }
-
     public View createHeaderView(HeaderType type) {
         LayoutInflater layoutInflater = (LayoutInflater) mMainActivity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -191,6 +201,50 @@ public class MainFragment extends FragmentBase {
                 break;
         }
         return headerView;
+    }
+
+    public void updatePageBulletPosition() {
+        int currentIndex = mHeaderViewPager.getCurrentItem();
+        for (int i = 0; i < mPageBulletLayout.getChildCount(); i++) {
+            ImageView bulletImage = (ImageView) mPageBulletLayout.getChildAt(i);
+            bulletImage.setImageDrawable(mMainActivity.getResources().getDrawable(i == currentIndex
+                    ? R.drawable.home_keyvisual_swipe_on : R.drawable.home_keyvisual_swipe_off));
+        }
+    }
+
+    public void stopAutoScrollViewPager() {
+        if (mViewPagerScrollTimer != null) {
+            mViewPagerScrollTimer.cancel();
+            mViewPagerScrollTimer.purge();
+            mViewPagerScrollTimer = null;
+        }
+    }
+
+    public void startAutoScrollViewPager() {
+        if (mViewPagerScrollTimer == null) {
+            mViewPagerScrollTimer = new Timer();
+            mViewPagerScrollTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            int i = mHeaderViewPager.getCurrentItem() + 1;
+                            if (i >= mHeaderViewPagerAdapter.getCount()) {
+                                i = 0;
+                            }
+
+                            mHeaderViewPager.setCurrentItem(i);
+                            if (i == 0) {
+                                //TODO changeNormalHeaderImage();
+                            }
+                        }
+                    });
+                }
+            }, 5000, 5000);
+
+            updateHeaderView();
+        }
     }
 
     protected final PagerAdapter mHeaderViewPagerAdapter = new PagerAdapter() {
