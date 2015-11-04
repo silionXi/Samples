@@ -3,8 +3,10 @@ package com.silion.samples;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -44,6 +46,9 @@ public class MainFragment extends FragmentBase {
     private Map<HeaderType, View> mHeaderTypeViewMap = new HashMap<>();
     private List<MainData> mMainDataList = new ArrayList<>();
 
+    private static String VIEW_BY_LIST = "view_by_list";
+    private static String VIEW_BY_GRID = "view_by_grid";
+    private SharedPreferences mSharedPreference;
     private Timer mViewPagerScrollTimer;
 
     protected enum HeaderType {
@@ -111,12 +116,11 @@ public class MainFragment extends FragmentBase {
         updateHeaderView();
 
         mListView = (ListView) mRootView.findViewById(R.id.listView);
-        mListAdapter = new ListAdapter();
-        mListView.setAdapter(mListAdapter);
-
         mGridView = (GridView) mRootView.findViewById(R.id.gridView);
-        mGridAdapter = new GridAdapter();
-        mGridView.setAdapter(mGridAdapter);
+
+        mSharedPreference = PreferenceManager.getDefaultSharedPreferences(mMainActivity);
+        String viewBy = mSharedPreference.getString("view_by", VIEW_BY_LIST);
+        viewBy(viewBy);
 
         updateMainData();
         return mRootView;
@@ -139,8 +143,12 @@ public class MainFragment extends FragmentBase {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.view_by_list:
+                mSharedPreference.edit().putString("view_by", VIEW_BY_LIST).apply();
+                viewBy(VIEW_BY_LIST);
                 return true;
             case R.id.view_by_grid:
+                mSharedPreference.edit().putString("view_by", VIEW_BY_GRID).apply();
+                viewBy(VIEW_BY_GRID);
                 return true;
             case R.id.action_settings:
                 performActionLink("samples://view/setting");
@@ -429,6 +437,20 @@ public class MainFragment extends FragmentBase {
             viewHolder.mIconImageView.setImageDrawable(mainData.mGridIcon);
             viewHolder.mTitleTextView.setText(mainData.mTitle);
             return view;
+        }
+    }
+
+    public void viewBy(String viewBy) {
+        if (viewBy.equals(VIEW_BY_LIST)) {
+            mGridView.setVisibility(View.GONE);
+            mListView.setVisibility(View.VISIBLE);
+            mListAdapter = new ListAdapter();
+            mListView.setAdapter(mListAdapter);
+        } else {
+            mListView.setVisibility(View.GONE);
+            mGridView.setVisibility(View.VISIBLE);
+            mGridAdapter = new GridAdapter();
+            mGridView.setAdapter(mGridAdapter);
         }
     }
 }
