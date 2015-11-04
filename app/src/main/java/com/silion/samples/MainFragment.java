@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class MainFragment extends FragmentBase {
     private ViewPager mHeaderViewPager;
     private ListView mListView;
     private ListAdapter mListAdapter;
+    private GridView mGridView;
+    private GridAdapter mGridAdapter;
 
     private List<View> mHeaderViewList = new ArrayList<>();
     private Map<HeaderType, View> mHeaderTypeViewMap = new HashMap<>();
@@ -48,12 +51,18 @@ public class MainFragment extends FragmentBase {
     }
 
     protected class MainData {
-        protected final Drawable mIcon;
+        protected final Drawable mGridIcon;
+        protected final Drawable mListIcon;
         protected final String mTitle;
         protected final String mUri;
 
-        public MainData(int icon, int title, String uri) {
-            this.mIcon = mMainActivity.getDrawable(icon);
+        public MainData(int title, String uri) {
+            this(R.drawable.home_grid_notice, R.drawable.home_list_others, title, uri);
+        }
+
+        public MainData(int gridIcon, int listIcon, int title, String uri) {
+            this.mGridIcon = mMainActivity.getResources().getDrawable(gridIcon);
+            this.mListIcon = mMainActivity.getResources().getDrawable(listIcon);
             this.mTitle = mMainActivity.getString(title);
             this.mUri = uri;
         }
@@ -104,7 +113,12 @@ public class MainFragment extends FragmentBase {
         mListView = (ListView) mRootView.findViewById(R.id.listView);
         mListAdapter = new ListAdapter();
         mListView.setAdapter(mListAdapter);
-        updateListView();
+
+        mGridView = (GridView) mRootView.findViewById(R.id.gridView);
+        mGridAdapter = new GridAdapter();
+        mGridView.setAdapter(mGridAdapter);
+
+        updateMainData();
         return mRootView;
     }
 
@@ -197,9 +211,9 @@ public class MainFragment extends FragmentBase {
         }
     }
 
-    public void updateListView() {
-        mMainDataList.add(new MainData(R.drawable.home_list_others, R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.drawable.home_list_others, R.string.android_msg_verify, "samples://view/msgVerify"));
+    public void updateMainData() {
+        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
+        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
     }
 
     public View createHeaderView(HeaderType type) {
@@ -345,10 +359,55 @@ public class MainFragment extends FragmentBase {
             }
 
             final MainData mainData = (MainData) getItem(position);
-            viewHolder.mIconImageView.setImageDrawable(mainData.mIcon);
+            viewHolder.mIconImageView.setImageDrawable(mainData.mListIcon);
             viewHolder.mTitleTextView.setText(mainData.mTitle);
             viewHolder.mIconBackgroundImageView.setColorFilter(mMainActivity.getResources().getColor(R.color.i));
 
+            return view;
+        }
+    }
+
+    protected class GridAdapter extends BaseAdapter {
+
+        class ViewHolder {
+            protected ImageView mIconImageView;
+            protected TextView mTitleTextView;
+        }
+
+        @Override
+        public int getCount() {
+            return mMainDataList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mMainDataList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            View view = convertView;
+            if (view == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) mMainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = layoutInflater.inflate(R.layout.griditem_main, mGridView, false);
+
+                viewHolder = new ViewHolder();
+                viewHolder.mIconImageView = (ImageView) view.findViewById(R.id.iconImageView);
+                viewHolder.mTitleTextView = (TextView) view.findViewById(R.id.titleTextView);
+                view.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) view.getTag();
+            }
+
+            MainData mainData = (MainData) getItem(position);
+            viewHolder.mIconImageView.setImageDrawable(mainData.mGridIcon);
+            viewHolder.mTitleTextView.setText(mainData.mTitle);
             return view;
         }
     }

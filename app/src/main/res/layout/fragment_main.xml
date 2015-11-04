@@ -11,7 +11,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:animateLayoutChanges="true">
 
         <android.support.v4.view.ViewPager
@@ -26,7 +25,7 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="16dp"
             android:layoutDirection="ltr"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
     </FrameLayout>
 
     <ListView
@@ -34,5 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@drawable/divider_listitem_icon"
-        android:dividerHeight="2px"/>
+        android:dividerHeight="2px" />
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnWidth="120dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
 </LinearLayout>
