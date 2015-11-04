@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/selector_griditem_main_icon"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <FrameLayout
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/iconImageView"
@@ -21,6 +23,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:textColor="@color/ta"
         android:textSize="19sp" />
 </LinearLayout>
