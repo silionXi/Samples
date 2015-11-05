@@ -33,6 +33,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         }
     }
 
+    interface OnItemClickListener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view, int postition);
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
     public RecyclerAdapter(Context context, List<RecyclerData> list) {
         mContext = context;
         mRecyclerDataList = list;
@@ -47,7 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerViewHolder viewHolder, final int i) {
         RecyclerData recyclerData = mRecyclerDataList.get(i);
         viewHolder.mIconImageView.setImageDrawable(recyclerData.getmIcon());
         viewHolder.mTitleTextView.setText(recyclerData.getmTitle());
@@ -56,6 +67,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         ViewGroup.LayoutParams layoutParams = viewHolder.itemView.getLayoutParams();
         layoutParams.height = 200 + recyclerData.getmOffsetHeight();
         viewHolder.itemView.setLayoutParams(layoutParams);
+
+        if (mOnItemClickListener != null) {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(v, i);
+                }
+            });
+
+            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mOnItemClickListener.onItemLongClick(v, i);
+                    return true;
+                }
+            });
+        }
     }
 
     @Override

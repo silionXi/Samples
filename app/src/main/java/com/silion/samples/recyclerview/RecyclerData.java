@@ -11,13 +11,13 @@ public class RecyclerData {
     private String mTitle;
     private int mOffsetHeight;
 
-    public RecyclerData(Context context, int icon, int title) {
+    public RecyclerData(Context context, int icon, String title) {
         this(context, icon, title, 0);
     }
 
-    public RecyclerData(Context context, int icon, int title, int offsetHeight) {
+    public RecyclerData(Context context, int icon, String title, int offsetHeight) {
         this.mIcon = context.getResources().getDrawable(icon);
-        this.mTitle = context.getString(title);
+        this.mTitle = title;
         this.mOffsetHeight = offsetHeight;
     }
 
