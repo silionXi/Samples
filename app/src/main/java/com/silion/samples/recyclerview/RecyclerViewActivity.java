@@ -41,6 +41,7 @@ public class RecyclerViewActivity extends Activity {
             public void onItemLongClick(View view, int postition) {
                 Toast.makeText(RecyclerViewActivity.this,
                         "LONG CLICK" + ((TextView) view.findViewById(R.id.titleTextView)).getText(), Toast.LENGTH_SHORT).show();
+                deleteItem(postition);
             }
         });
         mRecyclerView.setAdapter(mRecyclerAdapter);

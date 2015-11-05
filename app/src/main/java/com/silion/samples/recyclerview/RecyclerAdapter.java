@@ -58,7 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(final RecyclerViewHolder viewHolder, final int i) {
         RecyclerData recyclerData = mRecyclerDataList.get(i);
         viewHolder.mIconImageView.setImageDrawable(recyclerData.getmIcon());
         viewHolder.mTitleTextView.setText(recyclerData.getmTitle());
@@ -72,14 +72,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(v, i);
+                    mOnItemClickListener.onItemClick(viewHolder.itemView, viewHolder.getLayoutPosition());
                 }
             });
 
             viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    mOnItemClickListener.onItemLongClick(v, i);
+                    mOnItemClickListener.onItemLongClick(viewHolder.itemView, viewHolder.getLayoutPosition());
                     return true;
                 }
             });
