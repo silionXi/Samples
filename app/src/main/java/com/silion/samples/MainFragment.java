@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -220,7 +221,7 @@ public class MainFragment extends FragmentBase {
     }
 
     public void updateMainData() {
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
+        mMainDataList.add(new MainData(R.string.android_recycler_view, "samples://activity/recyclerView"));
         mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
         mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
         mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
@@ -379,7 +380,7 @@ public class MainFragment extends FragmentBase {
                 viewHolder = new ViewHolder();
                 viewHolder.mIconBackgroundImageView = (ImageView) view.findViewById(R.id.iconBackgroundImageView);
                 viewHolder.mIconImageView = (ImageView) view.findViewById(R.id.iconImageView);
-                viewHolder.mTitleTextView = (TextView) view.findViewById(R.id.title);
+                viewHolder.mTitleTextView = (TextView) view.findViewById(R.id.titleTextView);
 
                 view.setTag(viewHolder);
             } else {
@@ -446,11 +447,20 @@ public class MainFragment extends FragmentBase {
             mListView.setVisibility(View.VISIBLE);
             mListAdapter = new ListAdapter();
             mListView.setAdapter(mListAdapter);
+            mListView.setOnItemClickListener(mItemClickListener);
         } else {
             mListView.setVisibility(View.GONE);
             mGridView.setVisibility(View.VISIBLE);
             mGridAdapter = new GridAdapter();
             mGridView.setAdapter(mGridAdapter);
+            mGridView.setOnItemClickListener(mItemClickListener);
         }
     }
+
+    protected final AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            performActionLink(mMainDataList.get(position).mUri);
+        }
+    };
 }

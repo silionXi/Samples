@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
+
+import com.silion.samples.recyclerview.RecyclerViewActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -118,6 +121,14 @@ public class MainActivity extends Activity {
                         break;
                     }
                     case "activity": {
+                        switch (path) {
+                            case "recyclerView": {
+                                Intent intent = new Intent();
+                                intent.setClass(this, RecyclerViewActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+                        }
                         break;
                     }
                     default:
