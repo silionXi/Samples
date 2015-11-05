@@ -2,7 +2,6 @@ package com.silion.samples.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     private List<RecyclerData> mRecyclerDataList;
 
 
-    class RecyclerViewHolder extends ViewHolder {
+    class RecyclerViewHolder extends RecyclerView.ViewHolder {
         protected ImageView mIconBackgroundImageView;
         protected ImageView mIconImageView;
         protected TextView mTitleTextView;
@@ -53,6 +52,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         viewHolder.mIconImageView.setImageDrawable(recyclerData.getmIcon());
         viewHolder.mTitleTextView.setText(recyclerData.getmTitle());
         viewHolder.mIconBackgroundImageView.setColorFilter(mContext.getResources().getColor(R.color.i));
+
+        ViewGroup.LayoutParams layoutParams = viewHolder.itemView.getLayoutParams();
+        layoutParams.height = 200 + recyclerData.getmOffsetHeight();
+        viewHolder.itemView.setLayoutParams(layoutParams);
     }
 
     @Override

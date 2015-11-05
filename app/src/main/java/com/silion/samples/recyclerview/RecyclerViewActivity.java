@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Switch;
 
 import com.silion.samples.R;
 
@@ -55,14 +54,19 @@ public class RecyclerViewActivity extends Activity {
                 return true;
             case R.id.recycler_listView:
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                initDatas();
                 return true;
             case R.id.recycler_gridView:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+                initDatas();
                 return true;
             case R.id.recycler_hor_gridView:
-                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(5,StaggeredGridLayoutManager.HORIZONTAL));
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.HORIZONTAL));
+                initDatas();
                 return true;
             case R.id.recycler_staggered:
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                initStaggeredData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -70,6 +74,7 @@ public class RecyclerViewActivity extends Activity {
     }
 
     public void initDatas() {
+        mRecyclerDataList.clear();
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
@@ -91,6 +96,34 @@ public class RecyclerViewActivity extends Activity {
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    public void initStaggeredData() {
+        mRecyclerDataList.clear();
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view, (int) (Math.random() * 300)));
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 
     public void updateAcitonBar() {
