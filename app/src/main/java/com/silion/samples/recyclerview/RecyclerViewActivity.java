@@ -34,7 +34,7 @@ public class RecyclerViewActivity extends Activity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         //set RecyclerView's divider
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
         initDatas();
 
@@ -70,6 +70,21 @@ public class RecyclerViewActivity extends Activity {
     }
 
     public void initDatas() {
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
+        mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
         mRecyclerDataList.add(new RecyclerData(this, R.drawable.home_list_others, R.string.android_recycler_view));
