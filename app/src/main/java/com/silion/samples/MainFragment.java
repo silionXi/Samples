@@ -154,7 +154,7 @@ public class MainFragment extends FragmentBase {
             case R.id.action_settings:
                 performActionLink("samples://view/setting");
                 return true;
-            case R.id.developer:
+            case R.id.about:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -221,28 +221,8 @@ public class MainFragment extends FragmentBase {
     }
 
     public void updateMainData() {
-        mMainDataList.add(new MainData(R.string.android_recycler_view, "samples://activity/recyclerView"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
-        mMainDataList.add(new MainData(R.string.android_share_weibo, "samples://view/shareWeibo"));
-        mMainDataList.add(new MainData(R.string.android_msg_verify, "samples://view/msgVerify"));
+        mMainDataList.add(new MainData(R.string.android_recycler_view, "samples://activity/" + AcionLink.RECYCLER_VIEW));
+        mMainDataList.add(new MainData(R.string.android_service, "samples://activity/" + AcionLink.SERVICE));
     }
 
     public View createHeaderView(HeaderType type) {

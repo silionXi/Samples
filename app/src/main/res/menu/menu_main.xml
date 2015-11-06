@@ -23,8 +23,8 @@
     <!--android:showAsAction="always"-->
     <!--app:showAsAction="always"-->
     <item
-        android:id="@+id/developer"
+        android:id="@+id/about"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="@string/developer" />
+        android:title="@string/about" />
 </menu>

@@ -49,6 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         mRecyclerDataList = list;
     }
 
+
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -86,6 +87,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         }
     }
 
+    /**
+     * @return the count of the item,
+     * also the size of the data list
+     */
     @Override
     public int getItemCount() {
         return mRecyclerDataList.size();

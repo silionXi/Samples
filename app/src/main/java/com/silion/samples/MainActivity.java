@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.silion.samples.recyclerview.RecyclerViewActivity;
+import com.silion.samples.service.ServiceActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -122,9 +123,15 @@ public class MainActivity extends Activity {
                     }
                     case "activity": {
                         switch (path) {
-                            case "recyclerView": {
+                            case AcionLink.RECYCLER_VIEW: {
                                 Intent intent = new Intent();
                                 intent.setClass(this, RecyclerViewActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+                            case AcionLink.SERVICE: {
+                                Intent intent = new Intent();
+                                intent.setClass(this, ServiceActivity.class);
                                 startActivity(intent);
                                 break;
                             }
