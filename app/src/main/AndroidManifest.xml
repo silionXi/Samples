@@ -16,11 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".recyclerview.RecyclerViewActivity"
             android:label="@string/title_activity_recycler_view"></activity>
+
         <activity
             android:name=".service.ServiceActivity"
+            android:label="@string/title_activity_service"></activity>
+
+        <activity
+            android:name=".stickylistheaders.StickyListHeadersActivity"
             android:label="@string/title_activity_service"></activity>
 
         <service android:name=".service.SamplesService" />

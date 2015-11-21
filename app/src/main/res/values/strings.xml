@@ -35,4 +35,5 @@
     <string name="title_activity_service">Service</string>
     <string name="start_service">Start Service</string>
     <string name="stop_service">Stop Service</string>
+    <string name="android_Sticky_List_Headers">StickyListHeaders</string>
 </resources>

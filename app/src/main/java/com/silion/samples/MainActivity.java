@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.silion.samples.stickylistheaders.StickyListHeadersActivity;
 import com.silion.samples.recyclerview.RecyclerViewActivity;
 import com.silion.samples.service.ServiceActivity;
 
@@ -132,6 +133,12 @@ public class MainActivity extends Activity {
                             case AcionLink.SERVICE: {
                                 Intent intent = new Intent();
                                 intent.setClass(this, ServiceActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+                            case AcionLink.STICKY_LIST_HEADERS: {
+                                Intent intent = new Intent();
+                                intent.setClass(this, StickyListHeadersActivity.class);
                                 startActivity(intent);
                                 break;
                             }

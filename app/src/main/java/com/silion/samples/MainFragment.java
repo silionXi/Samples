@@ -223,6 +223,7 @@ public class MainFragment extends FragmentBase {
     public void updateMainData() {
         mMainDataList.add(new MainData(R.string.android_recycler_view, "samples://activity/" + AcionLink.RECYCLER_VIEW));
         mMainDataList.add(new MainData(R.string.android_service, "samples://activity/" + AcionLink.SERVICE));
+        mMainDataList.add(new MainData(R.string.android_Sticky_List_Headers, "samples://activity/" + AcionLink.STICKY_LIST_HEADERS));
     }
 
     public View createHeaderView(HeaderType type) {

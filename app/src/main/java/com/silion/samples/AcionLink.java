@@ -6,4 +6,5 @@ package com.silion.samples;
 public class AcionLink {
     public final static String RECYCLER_VIEW = "recyclerView";
     public final static String SERVICE = "service";
+    public final static String STICKY_LIST_HEADERS = "stickyListHeaders";
 }
