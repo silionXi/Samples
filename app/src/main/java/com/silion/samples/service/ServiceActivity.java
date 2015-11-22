@@ -1,8 +1,10 @@
 package com.silion.samples.service;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +22,18 @@ public class ServiceActivity extends Activity implements View.OnClickListener{
         startServiceButton.setOnClickListener(this);
         Button stopServiceButton = (Button) findViewById(R.id.stopServiceButton);
         stopServiceButton.setOnClickListener(this);
+        updateActionBar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -40,5 +54,14 @@ public class ServiceActivity extends Activity implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    public void updateActionBar() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            return;
+        }
+
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
     }
 }

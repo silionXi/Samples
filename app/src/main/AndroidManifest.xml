@@ -27,7 +27,7 @@
 
         <activity
             android:name=".stickylistheaders.StickyListHeadersActivity"
-            android:label="@string/title_activity_service"></activity>
+            android:label="@string/title_activity_sticky_list_headers"></activity>
 
         <service android:name=".service.SamplesService" />
     </application>
