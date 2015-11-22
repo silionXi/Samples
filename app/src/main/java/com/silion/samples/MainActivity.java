@@ -12,9 +12,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.silion.samples.stickylistheaders.StickyListHeadersActivity;
 import com.silion.samples.recyclerview.RecyclerViewActivity;
 import com.silion.samples.service.ServiceActivity;
+import com.silion.samples.stickylistheaders.StickyListHeadersActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;

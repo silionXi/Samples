@@ -13,7 +13,7 @@ import com.silion.samples.R;
 /**
  * Created by silion on 2015/11/6.
  */
-public class ServiceActivity extends Activity implements View.OnClickListener{
+public class ServiceActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

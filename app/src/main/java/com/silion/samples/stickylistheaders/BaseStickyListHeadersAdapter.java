@@ -97,7 +97,7 @@ public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = getView(position, axtractHeaderAndListItemFromConvertView(convertView));
-        if (position == 0 || getHeaderId(position) != getHeaderId(position-1)) {
+        if (position == 0 || getHeaderId(position) != getHeaderId(position - 1)) {
             view = attachHeaderToListItem(getHeaderWithForPosition(position), view);
             mCurrentlyVissibleHeaderViews.put(position, view);
         } else {

@@ -37,10 +37,6 @@ public class StickyListHeaderAdapter extends BaseStickyListHeadersAdapter {
         return convertView;
     }
 
-    class HeaderViewHolder {
-        TextView mHeaderTextView;
-    }
-
     @Override
     public long getHeaderId(int position) {
         return mCountryArray[position].subSequence(0, 1).charAt(0);
@@ -63,10 +59,6 @@ public class StickyListHeaderAdapter extends BaseStickyListHeadersAdapter {
         return convertView;
     }
 
-    class ViewHolder {
-        TextView mTextView;
-    }
-
     @Override
     public int getCount() {
         return mCountryArray.length;
@@ -80,5 +72,13 @@ public class StickyListHeaderAdapter extends BaseStickyListHeadersAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    class HeaderViewHolder {
+        TextView mHeaderTextView;
+    }
+
+    class ViewHolder {
+        TextView mTextView;
     }
 }

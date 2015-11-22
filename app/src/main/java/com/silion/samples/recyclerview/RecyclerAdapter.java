@@ -18,37 +18,16 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
     private Context mContext;
     private List<RecyclerData> mRecyclerDataList;
-
-
-    class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        protected ImageView mIconBackgroundImageView;
-        protected ImageView mIconImageView;
-        protected TextView mTitleTextView;
-
-        public RecyclerViewHolder(View itemView) {
-            super(itemView);
-            mIconBackgroundImageView = (ImageView) itemView.findViewById(R.id.iconBackgroundImageView);
-            mIconImageView = (ImageView) itemView.findViewById(R.id.iconImageView);
-            mTitleTextView = (TextView) itemView.findViewById(R.id.titleTextView);
-        }
-    }
-
-    interface OnItemClickListener {
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view, int postition);
-    }
-
     private OnItemClickListener mOnItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
-    }
 
     public RecyclerAdapter(Context context, List<RecyclerData> list) {
         mContext = context;
         mRecyclerDataList = list;
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -94,5 +73,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public int getItemCount() {
         return mRecyclerDataList.size();
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(View view, int position);
+
+        void onItemLongClick(View view, int postition);
+    }
+
+    class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        protected ImageView mIconBackgroundImageView;
+        protected ImageView mIconImageView;
+        protected TextView mTitleTextView;
+
+        public RecyclerViewHolder(View itemView) {
+            super(itemView);
+            mIconBackgroundImageView = (ImageView) itemView.findViewById(R.id.iconBackgroundImageView);
+            mIconImageView = (ImageView) itemView.findViewById(R.id.iconImageView);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.titleTextView);
+        }
     }
 }

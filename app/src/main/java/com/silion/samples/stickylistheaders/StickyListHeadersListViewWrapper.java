@@ -27,7 +27,7 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
      * Simple constructor to use when creating a view from code.
      *
      * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
+     *                access the current theme, resources, etc.
      */
     public StickyListHeadersListViewWrapper(Context context) {
         super(context);
@@ -42,14 +42,14 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
      * that were specified in the XML file. This version uses a default style of
      * 0, so the only attribute values applied are those in the Context's Theme
      * and the given AttributeSet.
-     *
-     * <p>
+     * <p/>
+     * <p/>
      * The method onFinishInflate() will be called after all children have been
      * added.
      *
      * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the view.
+     *                access the current theme, resources, etc.
+     * @param attrs   The attributes of the XML tag that is inflating the view.
      * @see #StickyListHeadersListViewWrapper(Context, AttributeSet, int)
      */
     public StickyListHeadersListViewWrapper(Context context, AttributeSet attrs) {
@@ -70,12 +70,12 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
      * allows the theme's button style to modify all of the base view attributes
      * (in particular its background) as well as the Button class's attributes.
      *
-     * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the view.
+     * @param context      The Context the view is running in, through which it can
+     *                     access the current theme, resources, etc.
+     * @param attrs        The attributes of the XML tag that is inflating the view.
      * @param defStyleAttr An attribute in the current theme that contains a
-     *        reference to a style resource that supplies default values for
-     *        the view. Can be 0 to not look for defaults.
+     *                     reference to a style resource that supplies default values for
+     *                     the view. Can be 0 to not look for defaults.
      * @see #StickyListHeadersListViewWrapper(Context, AttributeSet) (Context, AttributeSet)
      */
     public StickyListHeadersListViewWrapper(Context context, AttributeSet attrs, int defStyleAttr) {

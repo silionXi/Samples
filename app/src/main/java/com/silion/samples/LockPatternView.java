@@ -14,20 +14,16 @@ import java.util.List;
  * Lock Pattern view
  */
 public class LockPatternView extends View {
+    public OnPatternChangeListener mOnPatternChangeListener;
     private Circle[][] mCircle = new Circle[3][3];
     private List<Circle> mCircleList = new ArrayList<>();
-
     private float mOffsetsX;
     private float mOffsetsY;
-
     private Paint mPaint = new Paint();
     private boolean mIsInit = false;
     private boolean mIsSelect = false;
     private boolean mIsFinish = false;
-
     private Circle mMovingCircle;
-
-    public OnPatternChangeListener mOnPatternChangeListener;
 
     public LockPatternView(Context context) {
         super(context);
@@ -248,6 +244,24 @@ public class LockPatternView extends View {
     }
 
     /**
+     * set pattern listener
+     *
+     * @param listener
+     */
+    public void setOnPatternChangeListener(OnPatternChangeListener listener) {
+        if (listener != null) {
+            mOnPatternChangeListener = listener;
+        }
+    }
+
+    /**
+     * Pattern Listener
+     */
+    public interface OnPatternChangeListener {
+        void onPatternChange(String pattern);
+    }
+
+    /**
      * Circle
      */
     public static class Circle {
@@ -275,24 +289,6 @@ public class LockPatternView extends View {
         public boolean inCircle(float movingX, float movingY) {
             double d = Math.sqrt((x - movingX) * (x - movingX) + (y - movingY) * (y - movingY));
             return d <= r;
-        }
-    }
-
-    /**
-     * Pattern Listener
-     */
-    public interface OnPatternChangeListener {
-        void onPatternChange(String pattern);
-    }
-
-    /**
-     * set pattern listener
-     *
-     * @param listener
-     */
-    public void setOnPatternChangeListener(OnPatternChangeListener listener) {
-        if (listener != null) {
-            mOnPatternChangeListener = listener;
         }
     }
 }

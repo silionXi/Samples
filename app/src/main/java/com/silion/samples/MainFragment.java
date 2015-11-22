@@ -35,6 +35,8 @@ import java.util.TimerTask;
  * A simple {@link FragmentBase} subclass.
  */
 public class MainFragment extends FragmentBase {
+    private static String VIEW_BY_LIST = "view_by_list";
+    private static String VIEW_BY_GRID = "view_by_grid";
     private View mRootView;
     private ViewGroup mPageBulletLayout;
     private ViewPager mHeaderViewPager;
@@ -42,37 +44,45 @@ public class MainFragment extends FragmentBase {
     private ListAdapter mListAdapter;
     private GridView mGridView;
     private GridAdapter mGridAdapter;
-
     private List<View> mHeaderViewList = new ArrayList<>();
+    protected final PagerAdapter mHeaderViewPagerAdapter = new PagerAdapter() {
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            View view = mHeaderViewList.get(position);
+            container.addView(view);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+        @Override
+        public int getCount() {
+            return mHeaderViewList.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object o) {
+            return view == o; //check if two objects are same
+        }
+    };
     private Map<HeaderType, View> mHeaderTypeViewMap = new HashMap<>();
     private List<MainData> mMainDataList = new ArrayList<>();
-
-    private static String VIEW_BY_LIST = "view_by_list";
-    private static String VIEW_BY_GRID = "view_by_grid";
+    protected final AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            performActionLink(mMainDataList.get(position).mUri);
+        }
+    };
     private SharedPreferences mSharedPreference;
     private Timer mViewPagerScrollTimer;
-
-    protected enum HeaderType {
-        ONE, TWO, THREE, FOUR
-    }
-
-    protected class MainData {
-        protected final Drawable mGridIcon;
-        protected final Drawable mListIcon;
-        protected final String mTitle;
-        protected final String mUri;
-
-        public MainData(int title, String uri) {
-            this(R.drawable.home_grid_notice, R.drawable.home_list_others, title, uri);
-        }
-
-        public MainData(int gridIcon, int listIcon, int title, String uri) {
-            this.mGridIcon = mMainActivity.getResources().getDrawable(gridIcon);
-            this.mListIcon = mMainActivity.getResources().getDrawable(listIcon);
-            this.mTitle = mMainActivity.getString(title);
-            this.mUri = uri;
-        }
-    }
 
     public MainFragment() {
         // Required empty public constructor
@@ -298,42 +308,45 @@ public class MainFragment extends FragmentBase {
         }
     }
 
-    protected final PagerAdapter mHeaderViewPagerAdapter = new PagerAdapter() {
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View view = mHeaderViewList.get(position);
-            container.addView(view);
-            return view;
+    public void viewBy(String viewBy) {
+        if (viewBy.equals(VIEW_BY_LIST)) {
+            mGridView.setVisibility(View.GONE);
+            mListView.setVisibility(View.VISIBLE);
+            mListAdapter = new ListAdapter();
+            mListView.setAdapter(mListAdapter);
+            mListView.setOnItemClickListener(mItemClickListener);
+        } else {
+            mListView.setVisibility(View.GONE);
+            mGridView.setVisibility(View.VISIBLE);
+            mGridAdapter = new GridAdapter();
+            mGridView.setAdapter(mGridAdapter);
+            mGridView.setOnItemClickListener(mItemClickListener);
+        }
+    }
+
+    protected enum HeaderType {
+        ONE, TWO, THREE, FOUR
+    }
+
+    protected class MainData {
+        protected final Drawable mGridIcon;
+        protected final Drawable mListIcon;
+        protected final String mTitle;
+        protected final String mUri;
+
+        public MainData(int title, String uri) {
+            this(R.drawable.home_grid_notice, R.drawable.home_list_others, title, uri);
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
+        public MainData(int gridIcon, int listIcon, int title, String uri) {
+            this.mGridIcon = mMainActivity.getResources().getDrawable(gridIcon);
+            this.mListIcon = mMainActivity.getResources().getDrawable(listIcon);
+            this.mTitle = mMainActivity.getString(title);
+            this.mUri = uri;
         }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-
-        @Override
-        public int getCount() {
-            return mHeaderViewList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return view == o; //check if two objects are same
-        }
-    };
+    }
 
     protected class ListAdapter extends BaseAdapter {
-
-        protected class ViewHolder {
-            protected ImageView mIconBackgroundImageView;
-            protected ImageView mIconImageView;
-            protected TextView mTitleTextView;
-        }
 
         @Override
         public int getCount() {
@@ -375,14 +388,15 @@ public class MainFragment extends FragmentBase {
 
             return view;
         }
-    }
 
-    protected class GridAdapter extends BaseAdapter {
-
-        class ViewHolder {
+        protected class ViewHolder {
+            protected ImageView mIconBackgroundImageView;
             protected ImageView mIconImageView;
             protected TextView mTitleTextView;
         }
+    }
+
+    protected class GridAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -420,28 +434,10 @@ public class MainFragment extends FragmentBase {
             viewHolder.mTitleTextView.setText(mainData.mTitle);
             return view;
         }
-    }
 
-    public void viewBy(String viewBy) {
-        if (viewBy.equals(VIEW_BY_LIST)) {
-            mGridView.setVisibility(View.GONE);
-            mListView.setVisibility(View.VISIBLE);
-            mListAdapter = new ListAdapter();
-            mListView.setAdapter(mListAdapter);
-            mListView.setOnItemClickListener(mItemClickListener);
-        } else {
-            mListView.setVisibility(View.GONE);
-            mGridView.setVisibility(View.VISIBLE);
-            mGridAdapter = new GridAdapter();
-            mGridView.setAdapter(mGridAdapter);
-            mGridView.setOnItemClickListener(mItemClickListener);
+        class ViewHolder {
+            protected ImageView mIconImageView;
+            protected TextView mTitleTextView;
         }
     }
-
-    protected final AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            performActionLink(mMainDataList.get(position).mUri);
-        }
-    };
 }

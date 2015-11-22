@@ -13,10 +13,10 @@ import android.view.View;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentBase extends Fragment implements IFragmentBase {
+    protected final Handler mHandler = new Handler(Looper.getMainLooper());
     protected MainActivity mMainActivity;
     protected String mTitle;
     protected View mCustomActionBarView;
-    protected final Handler mHandler = new Handler(Looper.getMainLooper());
 
     public FragmentBase() {
         // Required empty public constructor
