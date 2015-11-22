@@ -14,7 +14,7 @@ import com.silion.samples.R;
  * Created by silion on 2015/11/13.
  */
 public class StickyListHeadersListViewWrapper extends FrameLayout implements OnScrollListener {
-    private String ClassName = StickyListHeadersListViewWrapper.class.getSimpleName();
+    private String className = StickyListHeadersListViewWrapper.class.getSimpleName();
     private boolean mAreHeadersSticky;
     private ListView mListView;
     private OnScrollListener mOnScrollListener;
@@ -30,7 +30,7 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
         super(context, attrs);
         mListView = new ListView(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StickyListHeadersListView);
-        setAreHeadersSticky(a.getBoolean(R.attr.areHeadersSticky, true));
+        setAreHeadersSticky(a.getBoolean(0, true));
         a.recycle();
         setup();
     }
@@ -39,7 +39,7 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
         super(context, attrs, defStyleAttr);
         mListView = new ListView(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StickyListHeadersListView);
-        setAreHeadersSticky(a.getBoolean(R.attr.areHeadersSticky, true));
+        setAreHeadersSticky(a.getBoolean(0, true));
         a.recycle();
         setup();
     }
@@ -72,7 +72,7 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        android.util.Log.v("slong.liang", ClassName + " : onScroll");
+        android.util.Log.v("slong.liang", className + " : onScroll");
     }
 
     @Override

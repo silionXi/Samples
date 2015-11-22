@@ -13,8 +13,8 @@ import java.util.List;
  * Created by silion on 2015/11/14.
  */
 public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
-    public static final int LIST_ITEM_ID = 0;
-    public static final int HEADER_ID = 0;
+    public static final int LIST_ITEM_ID = View.generateViewId();
+    public static final int HEADER_ID = View.generateViewId();
 
     private List<View> mHeaderCacheList;
     private List<WrapperView> mWrapperViewCacheList;
