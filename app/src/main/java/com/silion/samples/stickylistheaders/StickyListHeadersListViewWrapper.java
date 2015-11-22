@@ -3,6 +3,7 @@ package com.silion.samples.stickylistheaders;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.FrameLayout;
@@ -15,7 +16,10 @@ import com.silion.samples.R;
  */
 public class StickyListHeadersListViewWrapper extends FrameLayout implements OnScrollListener {
     private String className = StickyListHeadersListViewWrapper.class.getSimpleName();
+    private int mHeaderBottomPosition;
+    private int mHeaderHeight = -1;
     private boolean mAreHeadersSticky;
+    private View mHeaderView;
     private ListView mListView;
     private OnScrollListener mOnScrollListener;
 
@@ -72,7 +76,40 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        android.util.Log.v("slong.liang", className + " : onScroll");
+        if (mOnScrollListener != null) {
+            mOnScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+        }
+        if (mListView.getAdapter() == null) {
+            return;
+        }
+        if (!(mListView.getAdapter() instanceof BaseStickyListHeadersAdapter)) {
+            throw new IllegalArgumentException("Adapter must be a subclass of StickyListHeadersAdapter");
+        }
+        BaseStickyListHeadersAdapter stickyListHeadersAdapter = (BaseStickyListHeadersAdapter) mListView.getAdapter();
+        if (mAreHeadersSticky) {
+            View viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem);
+            if (viewToWatch == null) {
+                viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem + 1);
+            }
+            if (viewToWatch != null) {
+                if (mHeaderHeight < 0) {
+                    mHeaderHeight = viewToWatch.findViewById(BaseStickyListHeadersAdapter.HEADER_ID).getHeight();
+                }
+                mHeaderBottomPosition = Math.min(viewToWatch.getTop(), mHeaderHeight);
+                mHeaderBottomPosition = mHeaderBottomPosition < 0 ? mHeaderHeight : mHeaderBottomPosition;
+            } else {
+                mHeaderBottomPosition = mHeaderHeight;
+            }
+            mHeaderView = stickyListHeadersAdapter.getHeaderView(firstVisibleItem, mHeaderView);
+            if (getChildCount() > 1) {
+                removeViewAt(1);
+            }
+            addView(mHeaderView);
+            LayoutParams params = (LayoutParams) mHeaderView.getLayoutParams();
+            params.height = mHeaderHeight;
+            params.topMargin = mHeaderBottomPosition - mHeaderHeight;
+            mHeaderView.setLayoutParams(params);
+        }
     }
 
     @Override
