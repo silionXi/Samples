@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.silion.samples.stickylistheaders.StickyListHeadersListViewWrapper xmlns:slh="http://schemas.android.com/apk/res/com.silion.samples"
+    <com.silion.samples.stickylistheaders.StickyListHeadersListViewWrapper
+        xmlns:slh="http://schemas.android.com/apk/res/com.silion.samples"
         android:id="@+id/stickyListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

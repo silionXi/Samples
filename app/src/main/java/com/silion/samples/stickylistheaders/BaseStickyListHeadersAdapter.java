@@ -74,6 +74,10 @@ public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
         return wrapperView.wrapViews(listItem);
     }
 
+    /**
+     * puts header into mHeaderCacheList, wrapper into mWrapperViewCacheList and returns listItem
+     * if convertView is null, returns null
+     */
     public View axtractHeaderAndListItemFromConvertView(View convertView) {
         if (convertView == null) {
             return null;
@@ -88,8 +92,9 @@ public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
         }
 
         View listItem = viewGroup.findViewById(LIST_ITEM_ID);
-        viewGroup.removeAllViews();
         mWrapperViewCacheList.add(new WrapperView(convertView));
+
+        viewGroup.removeAllViews();
 
         return listItem;
     }
