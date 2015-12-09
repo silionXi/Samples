@@ -92,13 +92,13 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
         addView(mListView);
     }
 
-    public ListView getListView() {
+    public ListView getWrappedListView() {
         return mListView;
     }
 
-    public void setListView(ListView listView) {
-        mListView = listView;
+    public void setWrappedListView(ListView listView) {
         mListView.setOnScrollListener(this);
+        mListView = listView;
     }
 
     public void setOnScrollListener(OnScrollListener onScrollListener) {

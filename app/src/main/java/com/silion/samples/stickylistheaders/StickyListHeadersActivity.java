@@ -18,7 +18,7 @@ public class StickyListHeadersActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sticky_list_headers);
         mStickyListView = (StickyListHeadersListViewWrapper) findViewById(R.id.stickyListView);
-        mStickyListView.getListView().setAdapter(new StickyListHeaderAdapter(this));
+        mStickyListView.getWrappedListView().setAdapter(new StickyListHeaderAdapter(this));
         updateActionBar();
     }
 
