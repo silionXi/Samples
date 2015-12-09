@@ -126,28 +126,29 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
         }
         BaseStickyListHeadersAdapter stickyListHeadersAdapter = (BaseStickyListHeadersAdapter) mListView.getAdapter();
         if (mAreHeadersSticky) {
-            View viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem);
-            if (viewToWatch == null) {
-                viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem + 1);
-            }
-            if (viewToWatch != null) {
-                if (mHeaderHeight < 0) {
-                    mHeaderHeight = viewToWatch.findViewById(BaseStickyListHeadersAdapter.HEADER_ID).getHeight();
-                }
-                mHeaderBottomPosition = Math.min(viewToWatch.getTop(), mHeaderHeight);
-                mHeaderBottomPosition = mHeaderBottomPosition < 0 ? mHeaderHeight : mHeaderBottomPosition;
-            } else {
-                mHeaderBottomPosition = mHeaderHeight;
-            }
+//            View viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem);
+//            if (viewToWatch == null) {
+//                viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem + 1);
+//            }
+//            if (viewToWatch != null) {
+//                if (mHeaderHeight < 0) {
+//                    mHeaderHeight = viewToWatch.findViewById(BaseStickyListHeadersAdapter.HEADER_ID).getHeight();
+//                }
+//                mHeaderBottomPosition = Math.min(viewToWatch.getTop(), mHeaderHeight);
+//                mHeaderBottomPosition = mHeaderBottomPosition < 0 ? mHeaderHeight : mHeaderBottomPosition;
+//            } else {
+//                mHeaderBottomPosition = mHeaderHeight;
+//            }
             mHeaderView = stickyListHeadersAdapter.getHeaderView(firstVisibleItem, mHeaderView);
+            int height = mHeaderView.getHeight();
             if (getChildCount() > 1) {
                 removeViewAt(1);
             }
             addView(mHeaderView);
             LayoutParams params = (LayoutParams) mHeaderView.getLayoutParams();
-            params.height = mHeaderHeight;
-            params.topMargin = mHeaderBottomPosition - mHeaderHeight;
-            mHeaderView.setLayoutParams(params);
+            params.height = 57;
+//            params.topMargin = mHeaderBottomPosition - mHeaderHeight;
+//            mHeaderView.setLayoutParams(params);
         }
     }
 
