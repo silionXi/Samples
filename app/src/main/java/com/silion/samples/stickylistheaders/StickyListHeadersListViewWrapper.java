@@ -2,6 +2,8 @@ package com.silion.samples.stickylistheaders;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
@@ -16,6 +18,9 @@ import com.silion.samples.R;
  */
 public class StickyListHeadersListViewWrapper extends FrameLayout implements OnScrollListener {
     private String className = StickyListHeadersListViewWrapper.class.getSimpleName();
+
+    private static final String HEADER_HEIGHT = "headerHeight";
+    private static final String SUPER_INSTANCE_STATE = "superInstanceState";
     private int mHeaderBottomPosition;
     private int mHeaderHeight = -1;
     private boolean mAreHeadersSticky;
@@ -87,8 +92,23 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
         setup();
     }
 
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle instanceState = new Bundle();
+        instanceState.putInt(HEADER_HEIGHT, mHeaderHeight);
+        instanceState.putParcelable(SUPER_INSTANCE_STATE, super.onSaveInstanceState());
+        return instanceState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        mHeaderHeight = ((Bundle)state).getInt(HEADER_HEIGHT);
+        super.onRestoreInstanceState(((Bundle)state).getParcelable(SUPER_INSTANCE_STATE));
+    }
+
     public void setup() {
         mListView.setOnScrollListener(this);
+        mListView.setId(R.id.list_view);
         addView(mListView);
     }
 
@@ -126,29 +146,34 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
         }
         BaseStickyListHeadersAdapter stickyListHeadersAdapter = (BaseStickyListHeadersAdapter) mListView.getAdapter();
         if (mAreHeadersSticky) {
-//            View viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem);
-//            if (viewToWatch == null) {
-//                viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem + 1);
-//            }
-//            if (viewToWatch != null) {
-//                if (mHeaderHeight < 0) {
-//                    mHeaderHeight = viewToWatch.findViewById(BaseStickyListHeadersAdapter.HEADER_ID).getHeight();
-//                }
-//                mHeaderBottomPosition = Math.min(viewToWatch.getTop(), mHeaderHeight);
-//                mHeaderBottomPosition = mHeaderBottomPosition < 0 ? mHeaderHeight : mHeaderBottomPosition;
-//            } else {
-//                mHeaderBottomPosition = mHeaderHeight;
-//            }
+            View viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem);
+            if (viewToWatch == null) {
+                viewToWatch = stickyListHeadersAdapter.getCurrentlyVissibleHeaderViews().get(firstVisibleItem + 1);
+            }
+            if (viewToWatch != null) {
+                if (mHeaderHeight < 0) {
+                    mHeaderHeight = viewToWatch.findViewById(R.id.header_view).getHeight();
+                }
+                mHeaderBottomPosition = Math.min(viewToWatch.getTop(), mHeaderHeight);
+                mHeaderBottomPosition = mHeaderBottomPosition < 0 ? mHeaderHeight : mHeaderBottomPosition;
+            } else {
+                mHeaderBottomPosition = mHeaderHeight;
+            }
             mHeaderView = stickyListHeadersAdapter.getHeaderView(firstVisibleItem, mHeaderView);
-            int height = mHeaderView.getHeight();
             if (getChildCount() > 1) {
                 removeViewAt(1);
             }
             addView(mHeaderView);
             LayoutParams params = (LayoutParams) mHeaderView.getLayoutParams();
             params.height = 57;
-//            params.topMargin = mHeaderBottomPosition - mHeaderHeight;
-//            mHeaderView.setLayoutParams(params);
+            params.topMargin = mHeaderBottomPosition - mHeaderHeight;
+            params.gravity = 0;
+            mHeaderView.setLayoutParams(params);
+            mHeaderView.setVisibility(VISIBLE);
+        }else {
+            if (mHeaderView != null) {
+                mHeaderView.setVisibility(GONE);
+            }
         }
     }
 

@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.silion.samples.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,9 +15,6 @@ import java.util.List;
  * Created by silion on 2015/11/14.
  */
 public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
-    public static final int LIST_ITEM_ID = View.generateViewId();
-    public static final int HEADER_ID = View.generateViewId();
-
     private List<View> mHeaderCacheList;
     private List<WrapperView> mWrapperViewCacheList;
     private Context mContext;
@@ -44,12 +43,12 @@ public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
             header = mHeaderCacheList.remove(0);
         }
         header = getHeaderView(position, header);
-        header.setId(HEADER_ID);
+        header.setId(R.id.header_view);
         return header;
     }
 
     public View attachHeaderToListItem(View header, View listItem) {
-        listItem.setId(LIST_ITEM_ID);
+        listItem.setId(R.id.list_item_view);
         WrapperView wrapperView = null;
         if (mWrapperViewCacheList.size() > 0) {
             wrapperView = mWrapperViewCacheList.remove(0);
@@ -63,7 +62,7 @@ public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
     }
 
     public View wrapListItem(View listItem) {
-        listItem.setId(LIST_ITEM_ID);
+        listItem.setId(R.id.list_item_view);
         WrapperView wrapperView = null;
         if (mWrapperViewCacheList.size() > 0) {
             wrapperView = mWrapperViewCacheList.remove(0);
@@ -86,12 +85,12 @@ public abstract class BaseStickyListHeadersAdapter extends BaseAdapter {
             mCurrentlyVissibleHeaderViews.remove(convertView.getTag());
         }
         ViewGroup viewGroup = (ViewGroup) convertView;
-        View headerView = viewGroup.findViewById(HEADER_ID);
+        View headerView = viewGroup.findViewById(R.id.header_view);
         if (headerView != null) {
             mHeaderCacheList.add(headerView);
         }
 
-        View listItem = viewGroup.findViewById(LIST_ITEM_ID);
+        View listItem = viewGroup.findViewById(R.id.list_item_view);
         mWrapperViewCacheList.add(new WrapperView(convertView));
 
         viewGroup.removeAllViews();
