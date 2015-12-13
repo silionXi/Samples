@@ -126,6 +126,7 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
     public void setup() {
         mListView.setOnScrollListener(this);
         mListView.setId(R.id.list_view);
+        mListView.setVerticalFadingEdgeEnabled(false);
         addView(mListView);
     }
 
@@ -135,6 +136,7 @@ public class StickyListHeadersListViewWrapper extends FrameLayout implements OnS
 
     public void setWrappedListView(ListView listView) {
         mListView.setOnScrollListener(this);
+        mListView.setVerticalFadingEdgeEnabled(false);
         mListView = listView;
     }
 
